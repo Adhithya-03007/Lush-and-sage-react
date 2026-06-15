@@ -1,9 +1,28 @@
+import { useEffect, useState } from "react";
+import { supabase } from "./supabase";
+import { Link } from "react-router-dom";
 import p1 from "../assets/product1.png";
 import p2 from "../assets/product2.png";
 import p3 from "../assets/product3.png";
 import p4 from "../assets/product4.png";
 
 function Products() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  async function fetchProducts() {
+    const { data } = await supabase
+      .from("products")
+      .select("*");
+
+    setProducts(data || []);
+  }
+
+  const images = [p1, p2, p3, p4];
+
   return (
     <section className="section products-section">
       <h2>Featured Products</h2>
@@ -11,32 +30,32 @@ function Products() {
       <div className="divider"></div>
 
       <div className="card-container">
-        <div className="product-card">
-          <img src={p1} alt="Linen Shirt" className="product-image" />
-          <h3>Linen Shirt</h3>
-          <p>₹1499</p>
-        </div>
+        {products.map((product, index) => (
+  <Link
+    key={product.id}
+    to={`/product/${product.id}`}
+    style={{
+      textDecoration: "none",
+      color: "inherit"
+    }}
+  >
+    <div className="product-card">
+      <img
+        src={images[index]}
+        alt={product.name}
+        className="product-image"
+      />
 
-        <div className="product-card">
-          <img src={p2} alt="Sage Dress" className="product-image" />
-          <h3>Sage Dress</h3>
-          <p>₹2199</p>
-        </div>
+      <h3>{product.name}</h3>
 
-        <div className="product-card">
-          <img src={p3} alt="Classic Jacket" className="product-image" />
-          <h3>Classic Jacket</h3>
-          <p>₹2699</p>
-        </div>
+      <p>₹{product.price}</p>
 
-        <div className="product-card">
-          <img src={p4} alt="Minimal Co-ord" className="product-image" />
-          <h3>Minimal Co-ord</h3>
-          <p>₹1899</p>
-        </div>
+      <p>{product.description}</p>
+    </div>
+  </Link>
+))}
       </div>
     </section>
   );
-}
-
+}   
 export default Products;
