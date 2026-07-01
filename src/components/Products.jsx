@@ -7,7 +7,7 @@ import p2 from "../assets/product2.png";
 import p3 from "../assets/product3.png";
 import p4 from "../assets/product4.png";
 
-function Products() {
+function Products({ search = "" }) {
   const [products, setProducts] = useState([]);
 
   const imageMap = {
@@ -26,53 +26,56 @@ function Products() {
       .from("products")
       .select("*");
 
+    console.log(data);
     setProducts(data || []);
   }
 
   async function addToCart(product) {
-
-  const { data: existing } = await supabase
-    .from("cart")
-    .select("*")
-    .eq("product_id", product.id)
-    .maybeSingle();
-
-  if (existing) {
-
-    await supabase
+    const { data: existing } = await supabase
       .from("cart")
-      .update({
-        quantity: existing.quantity + 1
-      })
-      .eq("id", existing.id);
+      .select("*")
+      .eq("product_id", product.id)
+      .maybeSingle();
 
-  } else {
+    if (existing) {
+      await supabase
+        .from("cart")
+        .update({
+          quantity: existing.quantity + 1,
+        })
+        .eq("id", existing.id);
+    } else {
+      await supabase
+        .from("cart")
+        .insert([
+          {
+            product_id: product.id,
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            image: product.image,
+            quantity: 1,
+          },
+        ]);
+    }
 
-    await supabase
-      .from("cart")
-      .insert([
-        {
-          product_id: product.id,
-          name: product.name,
-          price: product.price,
-          description: product.description,
-          image: product.image,
-          quantity: 1
-        }
-      ]);
+    alert("Added To Cart 🌿");
   }
 
-  alert("Added To Cart");
-}
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  console.log("Search:", search);
 
   return (
-    <section className="section products-section">
+    <section id="products" className="section products-section">
       <h2>Featured Products</h2>
 
       <div className="divider"></div>
 
       <div className="card-container">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div className="product-card" key={product.id}>
             <img
               src={imageMap[product.image]}

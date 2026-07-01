@@ -438,3 +438,131 @@ padding:10px;
 border:1px solid #ddd;
 border-radius:8px;
 }
+
+/* ========================= */
+/* LOGIN & SIGNUP */
+/* ========================= */
+
+.auth-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#edf4ec,#dcebd8,#c7dbc1);
+    padding:30px;
+}
+
+.auth-card{
+    width:420px;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(18px);
+    border-radius:30px;
+    padding:45px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+.auth-card h1{
+    font-size:2.7rem;
+    color:#4f7c5a;
+    margin-bottom:10px;
+}
+
+.auth-card h2{
+    color:#667566;
+    margin-bottom:35px;
+    font-weight:500;
+}
+
+.auth-card form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.auth-card input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    background:#f5f8f4;
+    font-size:16px;
+    box-shadow:0 5px 15px rgba(0,0,0,.06);
+}
+
+.auth-card input:focus{
+    border:2px solid #6b9c72;
+}
+
+.auth-card button{
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    background:#4f7c5a;
+    color:white;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.auth-card button:hover{
+    background:#3d6548;
+    transform:translateY(-2px);
+}
+
+.auth-card p{
+    margin-top:25px;
+    color:#667566;
+}
+
+.auth-card a{
+    color:#4f7c5a;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.auth-card a:hover{
+    text-decoration:underline;
+}
+
+.auth-card button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(79,124,90,.35);
+}
+
+.auth-card input{
+    color:#314131;
+}
+
+.auth-card input::placeholder{
+    color:#7b7b7b;
+}
+
+.auth-card input:focus{
+    color:#314131;
+}
+
+.search-box{
+display:flex;
+align-items:center;
+background:white;
+padding:8px 15px;
+border-radius:30px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+gap:8px;
+}
+
+.search-box input{
+border:none;
+outline:none;
+background:transparent;
+font-size:15px;
+width:140px;
+color:#4c6a4c;
+}
+
+.search-box input::placeholder{
+color:#8a8a8a;
+}
